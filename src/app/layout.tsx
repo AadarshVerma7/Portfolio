@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Oswald, Cinzel, Rubik_Wet_Paint } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -9,6 +9,21 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const oswald = Oswald({
+  subsets: ["latin"],
+  variable: "--font-oswald"
+})
+
+const conzel = Cinzel({
+  subsets: ["latin"],
+  variable: "--font-cinzel"
+})
+
+const graffiti = Rubik_Wet_Paint({
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -25,7 +40,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${oswald.variable} ${conzel.variable}  h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
