@@ -5,6 +5,7 @@ import { useScroll, useMotionValueEvent } from "framer-motion";
 
 import Landing from "../sections/Landing";
 import About from "../sections/About";
+import Projects from "../sections/Projects";
 import BlenderScene from "../components/BlenderScene";
 
 export default function Page() {
@@ -46,15 +47,21 @@ export default function Page() {
 
   return (
     <main className="relative bg-black">
-      <div className="fixed inset-0 z-0">
-        <BlenderScene ref={viewerRef} />
+      <div>
+        <div className="fixed inset-0 z-0">
+          <BlenderScene ref={viewerRef} />
+        </div>
+
+        <div className="fixed inset-0 z-1 bg-black/20" />
+
+        <div className="relative z-10">
+          <Landing />
+          <About />
+        </div>
       </div>
 
-      <div className="fixed inset-0 z-1 bg-black/20" />
-
-      <div className="relative z-10">
-        <Landing />
-        <About />
+      <div className="relative bg-[url('/images/bgImage.png')] bg-cover bg-center bg-no-repeat">
+        <Projects />
       </div>
     </main>
   );

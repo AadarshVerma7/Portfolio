@@ -1,6 +1,7 @@
 "use client"
 import { Caveat, Permanent_Marker } from "next/font/google";
 import Image from "next/image";
+import { useState } from "react";
 const graffiti = Permanent_Marker({
   weight: "400",
   subsets: ["latin"]
@@ -14,7 +15,9 @@ const handwritten = Caveat({
 const journeyItems = [
   {
     year: "2023",
-    title: "Started my journey with curiosity and code.",
+    title: "Beginning",
+    details: "Foundations, early experiments, and the first version of how I like to build.",
+    highlights: ["First projects", "Learning fundamentals", "Getting comfortable with code"],
     icon: (
       <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="9" />
@@ -24,7 +27,9 @@ const journeyItems = [
   },
   {
     year: "2023/24",
-    title: "Explored frontend development and built creative UIs.",
+    title: "Exploring",
+    details: "Focused on exploring more things about development and developing basic skills.",
+    highlights: ["UI experiments", "Responsive layouts", "Frontend systems"],
     icon: (
       <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="4" width="18" height="16" rx="1.8" />
@@ -36,7 +41,9 @@ const journeyItems = [
   },
   {
     year: "2024",
-    title: "Dived into backend, databases and system design.",
+    title: "Learning",
+    details: "Moved toward full stack thinking with APIs, persistence, and architecture basics.",
+    highlights: ["Backend logic", "Database design", "System thinking"],
     icon: (
       <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <ellipse cx="12" cy="5" rx="7" ry="3" />
@@ -47,7 +54,9 @@ const journeyItems = [
   },
   {
     year: "2025+",
-    title: "Building full stack applications and impactful products.",
+    title: "Building",
+    details: "Now shaping more complete products and focusing on building things that scale.",
+    highlights: ["Full stack flow", "Shipping features", "Product mindset"],
     icon: (
       <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M5 19a7 7 0 0 1 7-7h2a4 4 0 0 0 4-4V5h1v3a6 6 0 0 1-6 6h-1" />
@@ -58,41 +67,80 @@ const journeyItems = [
   },
 ]
 
-const driveItems = [
+const coreAbilities = [
   {
-    title: "Solving Real Problems",
-    text: "I love turning complex challenges into simple, intuitive solutions.",
+    title: "Frontend",
+    subtitle: "React & Next.js",
+    stars: 4,
     icon: (
-      <svg viewBox="0 0 24 24" className="h-10 w-10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M9 18h6" />
-        <path d="M10 22h4" />
-        <path d="M12 2a6 6 0 0 0-4 10.5V15h8v-2.5A6 6 0 0 0 12 2Z" />
-        <path d="M9 10h6" />
+      <svg viewBox="0 0 24 24" className="h-12 w-12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M13 2 4 14h6l-1 8 11-14h-7l0-6Z" />
       </svg>
     ),
   },
   {
-    title: "Creating Impact",
-    text: "I build with purpose, focusing on features that truly matter.",
+    title: "Backend",
+    subtitle: "Node.js & Express",
+    stars: 4,
     icon: (
-      <svg viewBox="0 0 24 24" className="h-10 w-10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="8" />
-        <circle cx="12" cy="12" r="2.5" />
-        <path d="M12 4v3" />
-        <path d="M20 12h-3" />
-        <path d="M12 20v-3" />
-        <path d="M4 12h3" />
+      <svg viewBox="0 0 24 24" className="h-12 w-12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="4" y="4" width="16" height="6" rx="1.6" />
+        <rect x="4" y="14" width="16" height="6" rx="1.6" />
+        <circle cx="8" cy="7" r="0.8" fill="currentColor" stroke="none" />
+        <circle cx="8" cy="17" r="0.8" fill="currentColor" stroke="none" />
       </svg>
     ),
   },
   {
-    title: "Continuous Growth",
-    text: "I’m always learning, exploring and leveling up my skills.",
+    title: "Databases",
+    subtitle: "MongoDB & SQL",
+    stars: 3,
     icon: (
-      <svg viewBox="0 0 24 24" className="h-10 w-10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4 12c2-4 5.5-6 8-6s6 2 8 6c-2 4-5.5 6-8 6s-6-2-8-6Z" />
-        <path d="M12 9v6" />
-        <path d="M9 12h6" />
+      <svg viewBox="0 0 24 24" className="h-12 w-12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <ellipse cx="12" cy="5" rx="7" ry="3" />
+        <path d="M5 5v5c0 1.7 3.1 3 7 3s7-1.3 7-3V5" />
+        <path d="M5 10v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5" />
+      </svg>
+    ),
+  },
+  {
+    title: "System Design",
+    subtitle: "Architecture & Scalability",
+    stars: 4,
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-12 w-12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="9" y="3" width="6" height="6" rx="1.2" />
+        <rect x="3" y="15" width="6" height="6" rx="1.2" />
+        <rect x="15" y="15" width="6" height="6" rx="1.2" />
+        <path d="M12 9v4" />
+        <path d="M12 13H6v2" />
+        <path d="M12 13h6v2" />
+      </svg>
+    ),
+  },
+  {
+    title: "Problem Solving",
+    subtitle: "DSA & Core CS",
+    stars: 5,
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-12 w-12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M8 4a6 6 0 0 0 0 12h1v2a1 1 0 0 0 1.6.8l2.4-1.8h2A6 6 0 0 0 8 4Z" />
+        <path d="M9 8h6" />
+        <path d="M9 11h4" />
+      </svg>
+    ),
+  },
+  {
+    title: "Tools & Tech",
+    subtitle: "Git, Postman, VS Code & More",
+    stars: 5,
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-12 w-12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 19h16" />
+        <path d="M6 19V9h4v10" />
+        <path d="M14 19V7h4v12" />
+        <path d="M8 7l2-3 2 3" />
+        <path d="M16 5l2-2 2 2" />
       </svg>
     ),
   },
@@ -111,6 +159,9 @@ const techItems = [
 ]
 
 const About = () => {
+  const [activeJourneyIndex, setActiveJourneyIndex] = useState(0);
+  const activeJourney = journeyItems[activeJourneyIndex];
+
   return (
     <section
       id="about"
@@ -118,12 +169,12 @@ const About = () => {
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(214,158,56,0.10)_0%,rgba(214,158,56,0.04)_28%,transparent_60%)]" />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-310 flex-col gap-5">
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,0.84fr)_minmax(320px,0.66fr)_minmax(0,0.78fr)] lg:items-start">
-          <div className="pt-2 lg:col-start-1">
+      <div className="relative z-10 mx-auto flex w-full max-w-310 flex-col gap-3">
+        <div className="grid gap-7 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-start">
+          <div className="lg:col-start-1">
             <div className="mb-1 flex flex-col items-start">
               <p className={`${handwritten.className} text-[1.8rem] tracking-[0.12em] text-[#31908f] uppercase sm:text-[2rem]`}>
-                GET TO KNOW ME
+                GET TO KNOW 
               </p>
               <Image src="/textures/underline.png" alt="underline" width={150} height={16} className="-mt-1" />
             </div>
@@ -133,19 +184,11 @@ const About = () => {
             >
               ABOUT ME
             </h1>
-
-            <p className="mt-5 max-w-[520px] font-logo text-[1rem] leading-[1.55] text-[#e9dec6] sm:text-[1.08rem]">
-              I&apos;m a Full Stack Developer who loves turning ideas into meaningful digital experiences.
-              <br />
-              From clean UIs to robust backends,
-              <br />
-              I enjoy building things that solve real problems.
-            </p>
           </div>
 
           <div className="hidden lg:block" aria-hidden="true" />
 
-          <div className="relative min-h-[300px] lg:col-start-3 lg:min-h-[350px]">
+          <div className="relative self-start lg:min-h-0">
             {/* <div className="absolute inset-0 rounded-2xl border border-white/5 bg-[linear-gradient(180deg,rgba(255,214,130,0.015),rgba(255,214,130,0.005))] shadow-[0_8px_20px_rgba(0,0,0,0.05)]" /> */}
 
             {/* <div className="absolute right-0 top-0 inline-block">
@@ -173,7 +216,7 @@ const About = () => {
           </div>
         </div>
 
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_160px_minmax(0,1fr)]">
+        <div className="grid gap-3 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]">
           <div className="rounded-sm border border-[#2e8484]/65 bg-[rgba(2,11,11,0.42)] px-4 py-4 shadow-[0_10px_26px_rgba(0,0,0,0.18)] sm:px-5">
             <div className="mb-4 flex items-center gap-3">
               <p className={`${handwritten.className} text-[1.5rem] tracking-[0.1em] text-[#31908f] uppercase`}>
@@ -182,54 +225,119 @@ const About = () => {
               <div className="h-px flex-1 bg-[linear-gradient(90deg,rgba(74,177,177,0.8),rgba(74,177,177,0.15))]" />
             </div>
 
-            <div className="relative grid gap-4 pt-2 xl:grid-cols-4 xl:gap-3">
-              <div className="pointer-events-none absolute left-[calc(12.5%-1px)] right-[calc(12.5%-1px)] top-2 h-px bg-[linear-gradient(90deg,rgba(193,163,120,0.2),rgba(193,163,120,0.9),rgba(193,163,120,0.9),rgba(193,163,120,0.2))] opacity-80 xl:left-10 xl:right-10" />
-              {journeyItems.map((item) => (
-                <div key={item.year} className="relative flex flex-col items-center text-center">
-                  <div className="absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 rounded-full border border-[#cfb07a] bg-[#0d0d0d] shadow-[0_0_0_4px_rgba(36,36,36,0.75)]" />
-                  <div className="mt-5 text-[1.05rem] text-[#7bb2b0] sm:text-[1.35rem]">
-                    {item.year}
+            <div className="relative overflow-hidden rounded-sm border border-[#2f7a7a]/45 bg-[rgba(5,15,15,0.62)] px-4 py-4 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)] sm:px-5 sm:py-5 lg:min-h-[285px]">
+              <div className="absolute left-0 top-0 h-full w-1 bg-[linear-gradient(180deg,rgba(207,176,122,0.95),rgba(49,144,143,0.75))]" />
+
+              <div className="relative grid gap-2 sm:grid-cols-4">
+                {journeyItems.map((item, index) => {
+                  const isActive = index === activeJourneyIndex;
+
+                  return (
+                    <button
+                      key={item.year}
+                      type="button"
+                      onMouseEnter={() => setActiveJourneyIndex(index)}
+                      onFocus={() => setActiveJourneyIndex(index)}
+                      onClick={() => setActiveJourneyIndex(index)}
+                      className={`group rounded-sm border px-3 py-3 text-left transition-all duration-300 ${
+                        isActive
+                          ? "border-[#cfb07a] bg-[rgba(13,13,13,0.92)] shadow-[0_0_0_1px_rgba(207,176,122,0.2)]"
+                          : "border-[#2f7a7a]/35 bg-[rgba(6,19,19,0.3)] hover:border-[#cfb07a]/55 hover:bg-[rgba(8,20,20,0.5)]"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 sm:block sm:text-left">
+                        <div className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border ${isActive ? "border-[#cfb07a] text-[#d3b47c]" : "border-[#2f7a7a]/60 text-[#7bb2b0]"} bg-[rgba(6,19,19,0.65)] shadow-[0_0_0_4px_rgba(21,43,43,0.35)] sm:mb-3`}>
+                          {item.icon}
+                        </div>
+
+                        <div className="min-w-0">
+                          <div className={`${isActive ? "text-[#e4c388]" : "text-[#7bb2b0]"} font-logo text-[1rem] sm:text-[1.05rem]`}>
+                            {item.year}
+                          </div>
+                          <p className="mt-1 font-logo text-[0.76rem] leading-tight text-[#d9d0b7] sm:text-[0.8rem]">
+                            {item.title}
+                          </p>
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="relative mt-4 overflow-hidden rounded-sm border border-[#cfb07a]/22 bg-[rgba(3,10,10,0.45)] px-4 py-4 sm:px-5 sm:py-5">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(49,144,143,0.18)_0%,transparent_35%),radial-gradient(circle_at_85%_20%,rgba(207,176,122,0.12)_0%,transparent_28%)]" />
+                <div className="relative flex items-start gap-4">
+                  <div className="grid h-14 w-14 shrink-0 place-items-center rounded-full border border-[#cfb07a]/45 bg-[rgba(6,19,19,0.72)] text-[#d3b47c] shadow-[0_0_0_6px_rgba(21,43,43,0.28)] sm:h-16 sm:w-16">
+                    {activeJourney.icon}
                   </div>
-                  <div className="mt-3 grid h-14 w-14 place-items-center rounded-full border border-[#2f7a7a]/60 bg-[rgba(6,19,19,0.65)] text-[#d3b47c] shadow-[0_0_0_5px_rgba(21,43,43,0.45)]">
-                    {item.icon}
+
+                  <div className="min-w-0 flex-1">
+                    <p className={`${handwritten.className} text-[1.2rem] tracking-[0.12em] text-[#e4c388] uppercase sm:text-[1.45rem]`}>
+                      {activeJourney.year}
+                    </p>
+                    <h3 className={`${graffiti.className} mt-1 text-[1.2rem] leading-none tracking-[0.02em] text-[#d7af69] uppercase sm:text-[1.45rem]`}>
+                      {activeJourney.title}
+                    </h3>
+                    <p className="mt-2 max-w-136 font-logo text-[0.86rem] leading-[1.55] text-[#d9d0b7] sm:text-[0.92rem]">
+                      {activeJourney.details}
+                    </p>
                   </div>
-                  <p className="mt-4 max-w-[170px] font-logo text-[0.88rem] leading-[1.7] text-[#d9d0b7]">
-                    {item.title}
-                  </p>
                 </div>
-              ))}
+              </div>
             </div>
           </div>
 
-          <div className="hidden lg:block" aria-hidden="true" />
-
-          <div className="relative overflow-hidden rounded-sm border border-[#9d6b16]/55 bg-[rgba(24,15,4,0.40)] px-5 py-4 shadow-[0_10px_26px_rgba(0,0,0,0.18)] sm:px-6">
-            <div className="mb-4 flex items-center justify-between gap-3">
-              <div>
-                <p className={`${handwritten.className} text-[1.5rem] tracking-[0.1em] text-[#e1a63a] uppercase`}>
-                  WHAT DRIVES ME
-                </p>
-              </div>
-              <div className="text-[#d69a2f] opacity-90">
-                <svg viewBox="0 0 24 24" className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="m12 3 1.8 5.2L19 10l-5 3.1L15.2 19 12 15.8 8.8 19 10 13.1 5 10l5.2-1.8Z" />
+          <div className="relative overflow-hidden rounded-sm border border-[#9d6b16]/65 bg-[linear-gradient(180deg,rgba(13,10,6,0.92),rgba(22,14,7,0.8))] px-3 py-3 shadow-[0_10px_26px_rgba(0,0,0,0.22)] sm:px-4 sm:py-4">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,rgba(34,117,115,0.22)_0,rgba(34,117,115,0.1)_16%,transparent_34%),radial-gradient(circle_at_95%_10%,rgba(180,128,34,0.16)_0,transparent_18%),linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.12)_100%)]" />
+            <div className="pointer-events-none absolute inset-2.5 rounded-[3px] border border-[#7a4f12]/35" />
+            <div className="relative mb-3 flex items-center gap-3">
+              <div className="grid h-9 w-9 place-items-center rounded-full border border-[#d69a2f]/65 bg-[rgba(18,12,5,0.9)] text-[#d69a2f] shadow-[0_0_0_4px_rgba(28,18,8,0.55)]">
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 4h5l1.5 3H20v10H8.5L7 13H4Z" />
+                  <path d="M8 13h8" />
                 </svg>
+              </div>
+              <div className="flex-1">
+                <p className={`${handwritten.className} text-[1.35rem] tracking-[0.12em] text-[#d8af63] uppercase sm:text-[1.55rem]`}>
+                  CORE ABILITIES
+                </p>
               </div>
             </div>
 
-            <div className="grid gap-0 md:grid-cols-3">
-              {driveItems.map((item, index) => (
+            <div className="relative grid gap-3 lg:grid-cols-2 lg:gap-3">
+              {coreAbilities.map((item, index) => (
                 <div
                   key={item.title}
-                  className={`flex min-h-[230px] flex-col items-center px-4 py-2 text-center ${index > 0 ? "md:border-l md:border-[#9d6b16]/25" : ""}`}
+                  className="relative overflow-hidden rounded-sm border border-[#cc8c26]/55 bg-[rgba(5,5,5,0.82)] px-3 py-3 shadow-[inset_0_0_0_1px_rgba(255,214,130,0.03)] sm:px-4 sm:py-3.5"
                 >
-                  <div className="text-[#d69a2f]">{item.icon}</div>
-                  <h3 className="mt-3 font-logo text-[1rem] leading-[1.15] tracking-[0.15em] text-[#d69a2f] uppercase sm:text-[1.05rem]">
-                    {item.title}
-                  </h3>
-                  <p className="mt-4 max-w-[180px] font-logo text-[0.9rem] leading-[1.85] text-[#d9d0b7]">
-                    {item.text}
-                  </p>
+                  <div className="absolute left-4 top-4 h-20 w-20 rounded-full bg-[radial-gradient(circle,rgba(43,123,120,0.3)_0%,rgba(43,123,120,0.12)_36%,transparent_72%)] blur-[1px]" />
+                  <div className="relative flex items-start gap-3">
+                    <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full  text-[#d7af69]">
+                      {item.icon}
+                    </div>
+
+                    <div className="min-w-0 flex-1">
+                      <h3 className={`${graffiti.className} text-[1.15rem] leading-[0.95] tracking-[0.03em] text-[#d7af69] uppercase sm:text-[1.35rem]`}>
+                        {item.title}
+                      </h3>
+                      <p className="mt-1.5 font-logo text-[0.82rem] font-semibold leading-[1.2] text-[#3d8b87] sm:text-[0.9rem]">
+                        {item.subtitle}
+                      </p>
+
+                      <div className="mt-3 flex gap-1.5 text-[#d7af69]" aria-label={`${item.stars} out of 5 stars`}>
+                        {Array.from({ length: item.stars }).map((_, starIndex) => (
+                          <svg key={starIndex} viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
+                            <path d="m12 3 2.4 5.1 5.6.8-4 3.9.9 5.6L12 15.9 7.1 18.4l.9-5.6-4-3.9 5.6-.8Z" />
+                          </svg>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pointer-events-none absolute inset-0 rounded-sm border border-[#2b807f]/12" />
+                  {index % 2 === 0 ? (
+                    <div className="pointer-events-none absolute -right-2 top-1/2 h-16 w-16 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(43,123,120,0.2)_0%,transparent_70%)] blur-sm" />
+                  ) : null}
                 </div>
               ))}
             </div>
