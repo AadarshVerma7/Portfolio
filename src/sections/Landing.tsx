@@ -142,14 +142,19 @@ export default function HeroSection() {
           <span className="mt-1 block h-2 w-[11.2rem] bg-[radial-gradient(ellipse_at_center,rgba(214,176,111,0.9)_0%,rgba(214,176,111,0.75)_18%,rgba(214,176,111,0.2)_42%,transparent_72%)] opacity-85 blur-[1px] transition-opacity duration-300 group-hover:opacity-100 sm:w-[13.6rem] lg:w-60" />
 
           <div className="mt-3 flex gap-6">
+            <Link
+            href={"#projects"}>
             <button className="comic-btn-primary">
               VIEW MY WORK
               <span>→</span>
             </button>
-
+            </Link>
+            <Link
+            href={"#contact"}>
             <button className="comic-btn-secondary">
               CONTACT ME
             </button>
+            </Link>
           </div>
 
 

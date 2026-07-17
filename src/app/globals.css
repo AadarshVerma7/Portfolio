@@ -110,3 +110,13 @@
     inset 0 0 18px rgba(46,140,136,0.15),
     0 0 18px rgba(46,140,136,0.25);
 }
+
+@keyframes toast-loading {
+  0% {
+    left: -35%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
