@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import CardSwap, { Card } from "../components/CardSwap";
@@ -17,6 +17,17 @@ const caveat = Caveat({
   weight: "400",
   subsets: ["latin"],
 });
+
+const mobileQuery = "(max-width: 767px)";
+
+const subscribeToMobileViewport = (onStoreChange: () => void) => {
+  const mediaQuery = window.matchMedia(mobileQuery);
+  mediaQuery.addEventListener("change", onStoreChange);
+
+  return () => mediaQuery.removeEventListener("change", onStoreChange);
+};
+
+const getMobileViewportSnapshot = () => window.matchMedia(mobileQuery).matches;
 
 const projects = [
   {
@@ -97,12 +108,7 @@ const techStack = [
 ];
 
 const TechStackList = () => {
-  const [hoveredId, setHoveredId] = useState(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
     <div className="w-full max-w-[380px] shrink-0">
@@ -122,8 +128,8 @@ const TechStackList = () => {
               onMouseLeave={() => setHoveredId(null)}
               className="group relative cursor-pointer border-b border-[#d6b06f]/10 py-5 transition-all ease-out"
               style={{
-                opacity: mounted ? 1 : 0,
-                transform: mounted ? "translateY(0px)" : "translateY(10px)",
+                opacity: 1,
+                transform: "translateY(0px)",
                 transitionDuration: "500ms",
                 transitionDelay: `${index * 100}ms`,
               }}
@@ -202,16 +208,23 @@ const TechStackList = () => {
 };
 
 const Projects = () => {
+  const isMobile = useSyncExternalStore(
+    subscribeToMobileViewport,
+    getMobileViewportSnapshot,
+    () => false
+  );
+
   return (
     <section
       id="projects"
-      className="relative min-h-screen overflow-hidden bg-transparent px-4 pb-24 pt-28 sm:px-6 lg:px-8"
+      className="relative min-h-screen overflow-x-clip bg-transparent px-4 pb-16 pt-28 sm:px-6 sm:pb-24 lg:px-8"
     >
       <div className="mx-auto flex w-full max-w-7xl flex-col">
         <h2
           className={`
             ${graffiti.className}
-            text-7xl
+            text-5xl
+            sm:text-7xl
             lg:text-8xl
             leading-none
             uppercase
@@ -221,30 +234,32 @@ const Projects = () => {
             to-[#9f8450]
             bg-clip-text
             text-transparent
-            -translate-x-4
+            sm:-translate-x-4
           `}
         >
           Projects
         </h2>
 
-        <div className="mt-20 flex flex-col lg:flex-row items-start justify-between gap-12">
-          <TechStackList />
+        <div className="mt-12 flex flex-col items-start justify-between gap-10 sm:mt-16 lg:mt-20 lg:flex-row lg:gap-12">
+          <div className="hidden md:block">
+            <TechStackList />
+          </div>
 
           <div className="flex justify-center lg:justify-end w-full">
             <CardSwap
-              width={860}
-              height={540}
-              cardDistance={96}
-              verticalDistance={102}
+              width="min(100%, 860px)"
+              height={isMobile ? 680 : 540}
+              cardDistance={isMobile ? 0 : 96}
+              verticalDistance={isMobile ? 0 : 102}
               delay={3000}
               pauseOnHover
             >
               {projects.map((project, index) => (
                 <Card
                   key={project.title}
-                  className="overflow-hidden rounded-[28px] border border-[#d6b06f]/20 bg-[#0d0d0c]/92 p-8 shadow-[0_30px_80px_rgba(0,0,0,0.45)]"
+                  className="overflow-hidden rounded-[28px] border border-[#d6b06f]/20 bg-[#0d0d0c]/92 p-5 shadow-[0_30px_80px_rgba(0,0,0,0.45)] sm:p-8"
                 >
-                  <div className="grid h-full grid-cols-1 gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+                  <div className="grid h-full grid-cols-1 gap-5 sm:gap-8 lg:grid-cols-[1.05fr_0.95fr]">
                     <div className="flex h-full flex-col justify-between">
                       <div>
                         <p className="font-handwritten text-sm uppercase tracking-[0.35em] text-[#3f9c9c]">
@@ -254,7 +269,7 @@ const Projects = () => {
                         <div className="mt-3 h-px w-28 bg-[#3f9c9c]/50" />
                         <p className="font-handwritten text-[0.6rem] uppercase tracking-[0.35em] text-[#3f9c9c]">Hover to Stop!</p>
                         <h3
-                          className={`${graffiti.className} mt-8 text-5xl uppercase leading-none tracking-wide text-[#d6b06f] lg:text-6xl`}
+                          className={`${graffiti.className} mt-5 text-4xl uppercase leading-none tracking-wide text-[#d6b06f] sm:mt-8 sm:text-5xl lg:text-6xl`}
                         >
                           {project.title}
                         </h3>
@@ -266,7 +281,8 @@ const Projects = () => {
                         <p
                           className={`
                             ${caveat.className}
-                            mt-8
+                            mt-5
+                            sm:mt-8
                             max-w-97.5
                             text-2xl
                             leading-relaxed
@@ -298,7 +314,7 @@ const Projects = () => {
                       </div>
                     </div>
 
-                    <div className="relative min-h-75 overflow-hidden rounded-3xl border border-[#d6b06f]/15 bg-black/35">
+                    <div className="relative min-h-52 overflow-hidden rounded-3xl border border-[#d6b06f]/15 bg-black/35 sm:min-h-75">
                       <Image
                         src={project.image}
                         alt={`${project.title} preview`}

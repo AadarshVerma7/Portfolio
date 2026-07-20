@@ -1,16 +1,9 @@
 "use client";
 
-import {
-  motion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
-import Navbar from "../components/Navbar";
-import { Caveat, Road_Rage, Permanent_Marker } from "next/font/google";
+import { Caveat, Permanent_Marker } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-
 
 const graffiti = Permanent_Marker({
   weight: "400",
@@ -24,55 +17,17 @@ const ceveat = Caveat({
 
 
 export default function HeroSection() {
-  const sectionRef = React.useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.45, 0.8],
-    [1, 1, 0]
-  );
-
-  const y = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, -120]
-  );
-
-  const blurFilter = useTransform(
-    scrollYProgress,
-    [0.6, 1],
-    ["blur(0px)", "blur(8px)"]
-  );
-
-  const traitsOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.35, 0.65],
-    [1, 1, 0]
-  );
-
-  const traitsY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, -220]
-  );
-
   return (
     <section
-      ref={sectionRef}
       id="home"
-      className="relative min-h-screen">
+      className="relative min-h-screen overflow-x-clip">
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col p-8">
-        <Navbar />
-
+      <div
+      className="relative z-10 flex min-h-screen flex-col px-5 pb-8 pt-28 sm:p-8 sm:pt-32">
         {/* actual content  */}
         <div
-          className="max-w-162.5 text-left mt-30 ml-5"
+          className="mt-8 max-w-162.5 text-left sm:ml-5 sm:mt-16"
         >
 
           <p
@@ -80,7 +35,7 @@ export default function HeroSection() {
     mb-2
     font-handwritten
     text-[#3f9c9c]
-    text-2xl
+    text-lg
     tracking-wider
     uppercase
     ${ceveat.className}
@@ -92,7 +47,7 @@ export default function HeroSection() {
           <h1
             className={`
     ${graffiti.className}
-    text-[7rem]
+    text-[3.8rem]
     leading-[0.85]
     uppercase
     bg-linear-to-b
@@ -101,6 +56,8 @@ export default function HeroSection() {
     to-[#9f8450]
     bg-clip-text
     text-transparent
+    sm:text-[5.5rem]
+    lg:text-[7rem]
   `}
           >
 
@@ -114,7 +71,7 @@ export default function HeroSection() {
     mt-4
     font-handwritten
     text-[#3f9c9c]
-    text-3xl
+    text-2xl
     tracking-wide
     uppercase
     ${ceveat.className}
@@ -127,21 +84,22 @@ export default function HeroSection() {
             className="
     mt-6
     text-[#e8dfc9]
-    text-lg
+    text-base
+    sm:text-lg
     leading-relaxed
     max-w-125
     font-logo
     "
           >
             I build expressive, performant and
-            <br />
+            <span className="hidden sm:inline"><br /></span>
             meaningful digital experiences from
-            <br />
+            <span className="hidden sm:inline"><br /></span>
             concepts to code.
           </p>
           <span className="mt-1 block h-2 w-[11.2rem] bg-[radial-gradient(ellipse_at_center,rgba(214,176,111,0.9)_0%,rgba(214,176,111,0.75)_18%,rgba(214,176,111,0.2)_42%,transparent_72%)] opacity-85 blur-[1px] transition-opacity duration-300 group-hover:opacity-100 sm:w-[13.6rem] lg:w-60" />
 
-          <div className="mt-3 flex gap-6">
+          <div className="mt-5 flex flex-wrap gap-3 sm:gap-6">
             <Link
             href={"#projects"}>
             <button className="comic-btn-primary">
@@ -219,7 +177,7 @@ export default function HeroSection() {
           </div>
         </div>
         <div
-          className="mt-12 flex w-full items-center justify-between px-8"
+          className="mt-10 hidden w-full grid-cols-1 gap-4 px-0 sm:grid sm:grid-cols-2 sm:px-4 lg:mt-12 lg:grid-cols-4 lg:gap-6 lg:px-8"
         >
           {[
             {
@@ -242,9 +200,9 @@ export default function HeroSection() {
               title: "OPEN SOURCE",
               subtitle: "LEARNER",
             },
-          ].map((item, index) => (
+          ].map((item) => (
             <React.Fragment key={item.title}>
-              <div className="flex items-center gap-5">
+              <div className="flex items-center gap-3 sm:gap-5">
                 <div className="relative flex h-15 w-15 items-center justify-center">
                   {/* glow circle */}
                   <div className="absolute inset-0 rounded-full border border-[#1f8b87]/60 bg-[#0a1515]/30 shadow-[0_0_20px_rgba(31,139,135,0.25)]" />
@@ -259,19 +217,16 @@ export default function HeroSection() {
                 </div>
 
                 <div>
-                  <h3 className="font-logo text-2xl tracking-wide text-[#d4bc85]">
+                  <h3 className="font-logo text-lg tracking-wide text-[#d4bc85] sm:text-xl lg:text-2xl">
                     {item.title}
                   </h3>
 
-                  <h3 className="font-logo text-2xl tracking-wide text-[#d4bc85]">
+                  <h3 className="font-logo text-lg tracking-wide text-[#d4bc85] sm:text-xl lg:text-2xl">
                     {item.subtitle}
                   </h3>
                 </div>
               </div>
 
-              {index !== 3 && (
-                <div className="h-16 w-px bg-linear-to-b from-transparent via-[#1f8b87]/60 to-transparent" />
-              )}
             </React.Fragment>
           ))}
         </div>

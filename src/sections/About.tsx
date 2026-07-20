@@ -2,6 +2,7 @@
 import { Caveat, Permanent_Marker } from "next/font/google";
 import Image from "next/image";
 import { useState } from "react";
+import {motion} from "framer-motion"
 const graffiti = Permanent_Marker({
   weight: "400",
   subsets: ["latin"]
@@ -165,11 +166,12 @@ const About = () => {
   return (
     <section
       id="about"
-      className="relative min-h-screen overflow-hidden px-4 py-10 sm:px-6 lg:px-8"
+      className="relative min-h-screen overflow-x-clip px-4 py-16 sm:px-6 lg:px-8"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(214,158,56,0.10)_0%,rgba(214,158,56,0.04)_28%,transparent_60%)]" />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-310 flex-col gap-3">
+      <div
+      className="relative z-10 mx-auto flex w-full max-w-310 flex-col gap-3">
         <div className="grid gap-7 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-start">
           <div className="lg:col-start-1">
             <div className="mb-1 flex flex-col items-start">
@@ -180,7 +182,7 @@ const About = () => {
             </div>
 
             <h1
-              className={`${graffiti.className} w-fit whitespace-nowrap text-[3.6rem] leading-[0.84] uppercase tracking-[0.02em] text-transparent bg-clip-text bg-[linear-gradient(180deg,#e8d8af_0%,#cfb37a_55%,#8f6d39_100%)] drop-shadow-[0_2px_0_rgba(0,0,0,0.5)] sm:text-[4.8rem] lg:text-[6.4rem]`}
+              className={`${graffiti.className} w-fit text-[2.9rem] leading-[0.84] uppercase tracking-[0.02em] text-transparent bg-clip-text bg-[linear-gradient(180deg,#e8d8af_0%,#cfb37a_55%,#8f6d39_100%)] drop-shadow-[0_2px_0_rgba(0,0,0,0.5)] min-[380px]:whitespace-nowrap sm:text-[4.8rem] lg:text-[6.4rem]`}
             >
               ABOUT ME
             </h1>
@@ -189,28 +191,6 @@ const About = () => {
           <div className="hidden lg:block" aria-hidden="true" />
 
           <div className="relative self-start lg:min-h-0">
-            {/* <div className="absolute inset-0 rounded-2xl border border-white/5 bg-[linear-gradient(180deg,rgba(255,214,130,0.015),rgba(255,214,130,0.005))] shadow-[0_8px_20px_rgba(0,0,0,0.05)]" /> */}
-
-            {/* <div className="absolute right-0 top-0 inline-block">
-              <div className="rotate-[-1.5deg] bg-[#1d5c5d] px-7 py-3 shadow-[0_10px_25px_rgba(0,0,0,0.35)]">
-                <h2 className={`${handwritten.className} text-[1.6rem] uppercase tracking-[0.12em] text-[#efe2c8]`}>
-                  I&apos;M PASSIONATE ABOUT
-                </h2>
-              </div>
-            </div> */}
-
-            {/* <div className="relative z-10 grid gap-5 px-6 pb-6 pt-20 sm:px-7 lg:px-8">
-              {passionItems.map((item) => (
-                <div key={item.title} className="flex items-start gap-4">
-                  <div className="mt-1 grid h-9 w-9 shrink-0 place-items-center rounded-sm border border-[#d7af69]/45 text-[#d7af69] shadow-[inset_0_0_0_1px_rgba(255,224,162,0.12)]">
-                    {item.icon}
-                  </div>
-                  <h3 className="max-w-[320px] font-logo text-[1.05rem] leading-[1.08] tracking-[0.16em] text-[#d7af69] uppercase sm:text-[1.2rem]">
-                    {item.title}
-                  </h3>
-                </div>
-              ))}
-            </div> */}
 
             <div className="pointer-events-none absolute inset-0 rounded-2xl shadow-[inset_0_0_28px_rgba(0,0,0,0.06)]" />
           </div>

@@ -27,8 +27,10 @@ const SkillsSection = () => {
       className="
         relative
         min-h-screen
-        px-8
-        py-20
+        px-4
+        py-16
+        sm:px-8
+        sm:py-20
         lg:px-16
         xl:px-24
       "
@@ -59,7 +61,8 @@ const SkillsSection = () => {
             <h1
               className={`
                 ${graffiti.className}
-                text-7xl
+                text-5xl
+                sm:text-6xl
                 leading-[0.8]
                 uppercase
 
@@ -131,10 +134,10 @@ const SkillsSection = () => {
               onSelect={setActiveId}
               width="auto"
               height="auto"
-              itemWidth={124}
-              itemHeight={74}
+              itemWidth={56}
+              itemHeight={56}
               iconSize={34}
-              gap={16}
+              gap={10}
             />
           </div>
 
@@ -162,7 +165,8 @@ const SkillsSection = () => {
 
         <div
           className="
-            mt-12
+            mt-8
+            sm:mt-12
             grid
             grid-cols-1
             gap-10

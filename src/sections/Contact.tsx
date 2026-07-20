@@ -31,10 +31,6 @@ const Contact = () => {
     message: "",
   });
 
-  const [status, setStatus] = useState<
-  "idle" | "sending" | "success" | "error"
-  >("idle");
-  
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -108,6 +104,7 @@ const handleSubmit = async (
         overflow-hidden
         px-6
         pb-20
+        pt-20
         sm:px-10
         lg:px-16
         xl:px-24
@@ -124,7 +121,7 @@ const handleSubmit = async (
             <h1
               className={`
                 ${graffiti.className}
-                text-6xl
+                text-4xl
                 uppercase
                 leading-none
                 sm:text-7xl
@@ -243,12 +240,12 @@ const handleSubmit = async (
             className="
               relative
               flex
-              min-h-[560px]
+              min-h-0
               flex-col
               border-b
               border-[#d6b06f]/15
-              px-8
-              py-10
+              px-5
+              py-8
               sm:px-12
               lg:min-h-0
               lg:border-b-0
@@ -289,7 +286,7 @@ const handleSubmit = async (
               <h2
                 className={`
                   ${graffiti.className}
-                  text-5xl
+                  text-4xl
                   uppercase
                   leading-[0.9]
                   text-[#e5c47f]
@@ -304,7 +301,7 @@ const handleSubmit = async (
                 className={`
                   ${graffiti.className}
                   mt-2
-                  text-5xl
+                  text-4xl
                   uppercase
                   leading-[0.9]
                   text-[#3f9c9c]
@@ -351,7 +348,8 @@ const handleSubmit = async (
                   border
                   border-[#d6b06f]/15
                   bg-[#030504]/60
-                  p-6
+                  p-4
+                  sm:p-6
                 "
               >
                 {/* Subtle Grid Background */}
@@ -598,7 +596,7 @@ const handleSubmit = async (
               flex
               flex-col
               justify-center
-              px-8
+              px-5
               py-10
               sm:px-12
               lg:px-12

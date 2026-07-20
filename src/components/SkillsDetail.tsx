@@ -72,14 +72,15 @@ const SkillsDetail = ({ activeId }: SkillsDetailProps) => {
     <div
   className="
     relative
-    h-[540px]
+    min-h-[540px]
     w-full
     overflow-hidden
     rounded-[28px]
     border
     border-[#d6b06f]/20
     bg-[#080a08]/90
-    p-7
+    p-5
+    sm:p-7
   "
 >
       {/* ================================================= */}
@@ -177,7 +178,7 @@ const SkillsDetail = ({ activeId }: SkillsDetailProps) => {
         {/* HEADER */}
         {/* ================================================= */}
 
-        <div className="max-w-[80%]">
+        <div className="max-w-[90%] sm:max-w-[80%]">
 
           {/* Eyebrow */}
 
@@ -212,7 +213,8 @@ const SkillsDetail = ({ activeId }: SkillsDetailProps) => {
             className={`
               ${graffiti.className}
               mt-4
-              text-5xl
+              text-4xl
+              sm:text-5xl
               uppercase
               leading-none
               text-[#d6b06f]
@@ -259,7 +261,8 @@ const SkillsDetail = ({ activeId }: SkillsDetailProps) => {
   className="
     relative
     mt-5
-    h-[245px]
+    h-[200px]
+    sm:h-[245px]
     shrink-0
     overflow-hidden
     rounded-2xl

@@ -6,8 +6,6 @@ import {
   GraduationCap,
   CalendarDays,
   MapPin,
-  BookOpen,
-  Code2,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -30,14 +28,15 @@ const ExperienceJourney = ({ onSelect }: ExperienceJourneyProps) => {
     <div
       className="
         relative
-        h-[520px]
+        min-h-[520px]
         w-full
         overflow-hidden
         rounded-[28px]
         border
         border-[#d6b06f]/20
         bg-[#050807]/75
-        p-7
+        p-5
+        sm:p-7
         shadow-[0_25px_70px_rgba(0,0,0,0.35)]
         backdrop-blur-sm
       "
@@ -413,10 +412,8 @@ const ExperienceJourney = ({ onSelect }: ExperienceJourneyProps) => {
 
       <div
         className="
-    absolute
-    bottom-7
-    left-10
-    right-10
+    relative
+    mt-6
     z-10
   "
       >
@@ -430,7 +427,8 @@ const ExperienceJourney = ({ onSelect }: ExperienceJourneyProps) => {
       border
       border-[#d6b06f]/15
       bg-black/25
-      px-5
+      px-4
+      sm:px-5
       py-4
       transition-all
       duration-300

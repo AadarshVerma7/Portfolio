@@ -20,15 +20,6 @@ const responsibilities = [
   "Collaborated with team and followed clean code practices",
 ];
 
-const techStack = [
-  "React",
-  "Next.js",
-  "Node.js",
-  "Express.js",
-  "MongoDB",
-  "Tailwind CSS",
-];
-
 const learnings = [
   {
     icon: Code2,
@@ -57,14 +48,15 @@ const ExperienceDetails = () => {
     <div
       className="
         relative
-        h-[520px]
+        min-h-[520px]
         w-full
         overflow-hidden
         rounded-[28px]
         border
         border-[#d6b06f]/25
         bg-[#050807]/80
-        p-7
+        p-5
+        sm:p-7
         shadow-[0_25px_70px_rgba(0,0,0,0.4)]
         backdrop-blur-sm
       "
@@ -105,7 +97,7 @@ const ExperienceDetails = () => {
       {/* TOP SECTION */}
       {/* ================================================= */}
 
-      <div className="relative z-10 flex items-start justify-between gap-6">
+      <div className="relative z-10 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
         {/* LEFT - ROLE */}
 
         <div className="flex items-start gap-5">
@@ -181,7 +173,7 @@ const ExperienceDetails = () => {
 
         {/* RIGHT - DATE */}
 
-        <div className="flex shrink-0 items-center gap-4">
+        <div className="flex flex-wrap items-center gap-3 sm:shrink-0 sm:gap-4">
           <div
             className="
               flex
@@ -228,7 +220,8 @@ const ExperienceDetails = () => {
           z-10
           mt-4
           grid
-          grid-cols-[1.15fr_0.85fr]
+          grid-cols-1
+          sm:grid-cols-[1.15fr_0.85fr]
           gap-6
         "
       >
@@ -469,7 +462,7 @@ const ExperienceDetails = () => {
           />
         </div>
 
-        <div className="mt-3 grid grid-cols-4 gap-3">
+        <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {learnings.map((learning) => {
             const Icon = learning.icon;
 

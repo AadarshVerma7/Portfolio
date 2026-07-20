@@ -700,18 +700,21 @@ const SkillsBento = () => {
     <div
   className="
     grid
-    h-[540px]
+    h-[360px]
     w-full
-    grid-cols-6
-    grid-rows-2
+    grid-cols-3
+    grid-rows-1
     gap-2.5
+    sm:h-[540px]
+    sm:grid-cols-6
+    sm:grid-rows-2
   "
 >
       {/* ============================================= */}
       {/* CARD 1 - LINUX */}
       {/* ============================================= */}
 
-      <BentoCard className="col-span-2">
+      <BentoCard className="col-span-1 sm:col-span-2">
         <CardLabel>01 / SYSTEMS</CardLabel>
 
         <LinuxVisual />
@@ -723,7 +726,7 @@ const SkillsBento = () => {
       {/* CARD 2 - COMPUTER NETWORKS */}
       {/* ============================================= */}
 
-      <BentoCard className="col-span-2">
+      <BentoCard className="hidden sm:col-span-2 sm:block">
         <CardLabel>02 / NETWORKS</CardLabel>
 
         <NetworksVisual />
@@ -735,7 +738,7 @@ const SkillsBento = () => {
       {/* CARD 3 - OPERATING SYSTEMS */}
       {/* ============================================= */}
 
-      <BentoCard className="col-span-2 row-span-2">
+      <BentoCard className="hidden sm:col-span-2 sm:row-span-2 sm:block">
         <CardLabel>03 / SYSTEMS</CardLabel>
 
         <OperatingSystemsVisual />
@@ -747,7 +750,7 @@ const SkillsBento = () => {
       {/* CARD 4 - DBMS */}
       {/* ============================================= */}
 
-      <BentoCard className="col-span-2">
+      <BentoCard className="col-span-1 sm:col-span-2">
         <CardLabel>04 / DATA</CardLabel>
 
         <DBMSVisual />
@@ -759,7 +762,7 @@ const SkillsBento = () => {
       {/* CARD 5 - SYSTEM DESIGN */}
       {/* ============================================= */}
 
-      <BentoCard className="col-span-2">
+      <BentoCard className="col-span-1 sm:col-span-2">
         <CardLabel>05 / ARCHITECTURE</CardLabel>
 
         <SystemDesignVisual />

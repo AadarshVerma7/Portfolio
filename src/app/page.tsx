@@ -10,9 +10,15 @@ import BlenderScene from "../components/BlenderScene";
 import Skills from "../sections/Skills";
 import Experience from "../sections/Experience";
 import Contact from "../sections/Contact";
+import Navbar from "../components/Navbar";
+
+type ViewerElement = HTMLElement & {
+  cameraOrbit: string;
+  cameraTarget: string;
+};
 
 export default function Page() {
-  const viewerRef = useRef<any>(null);
+  const viewerRef = useRef<ViewerElement | null>(null);
 
   const { scrollYProgress } = useScroll();
 
@@ -49,7 +55,9 @@ export default function Page() {
   );
 
   return (
-    <main className="relative bg-black">
+    <main className="relative overflow-x-clip bg-black">
+      <Navbar />
+
       <div>
         <div className="fixed inset-0 z-0">
           <BlenderScene ref={viewerRef} />
@@ -70,16 +78,21 @@ export default function Page() {
         <Experience />
         <Contact />
       </div>
-        <a
-          href="#top"
+        <button
+        onClick={()=>{
+          document.getElementById("home")?.scrollIntoView({
+            behavior: "smooth"
+          });
+        }}
           className="
           mx-auto
     group
     relative
     mt-10
     flex
-    h-[90px]
-    w-[40%]
+    min-h-[76px]
+    w-[calc(100%-2rem)]
+    max-w-2xl
     items-center
     justify-between
     overflow-hidden
@@ -87,7 +100,9 @@ export default function Page() {
     border
     border-[#d6b06f]/20
     bg-[#050706]/70
-    px-8
+    px-5
+    py-4
+    sm:px-8
     transition-all
     duration-500
     hover:border-[#d6b06f]/50
@@ -184,7 +199,7 @@ export default function Page() {
       group-hover:bg-[#d6b06f]/10
     "
           />
-        </a>
+        </button>
       </div>
     </main>
   );

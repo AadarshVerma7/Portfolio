@@ -19,14 +19,15 @@ const Experience = () => {
     return (
         <section
             id="experience"
-            className='text-white relative min-h-screen px-25 py-10'>
+            className='relative min-h-screen overflow-x-clip px-4 pb-16 pt-24 text-white sm:px-8 lg:px-16 xl:px-25'>
             {/* Heading section  */}
-            <div className="flex justify-between w-full items-center">
+            <div className="flex w-full flex-col gap-8 xl:flex-row xl:items-center xl:justify-between">
                 <div className="flex flex-col gap-5">
                     <h1
                         className={`
                             ${graffiti.className}
-                         text-7xl
+                         text-5xl
+                         sm:text-7xl
                             leading-[0.8]
                             uppercase
 
@@ -69,13 +70,16 @@ const Experience = () => {
                         />
                     </div>
                 </div>
-                <div className="flex items-center gap-4 ml-13">
+                <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 xl:ml-13 xl:flex xl:w-auto xl:gap-4">
                     {/* ==================== EXPERIENCE ==================== */}
                     <div
                         className="
                             flex
-                            h-[100px]
-                            w-[220px]
+                            h-auto
+                            min-h-[88px]
+                            w-full
+                            xl:h-[100px]
+                            xl:w-[220px]
                             shrink-0
                             items-center
                             gap-4
@@ -117,8 +121,11 @@ const Experience = () => {
                     <div
                         className="
                          flex
-                         h-[100px]
-                         w-[220px]
+                         h-auto
+                         min-h-[88px]
+                         w-full
+                         xl:h-[100px]
+                         xl:w-[220px]
                         shrink-0
                         items-center
                         gap-4
@@ -162,8 +169,13 @@ const Experience = () => {
     group
     relative
     flex
-    h-[100px]
-    w-[220px]
+    h-auto
+    min-h-[88px]
+    w-full
+    sm:col-span-2
+    xl:col-auto
+    xl:h-[100px]
+    xl:w-[220px]
     shrink-0
     cursor-pointer
     items-center
@@ -405,8 +417,8 @@ const Experience = () => {
             />
 
             {/* actual experience section  */}
-            <div className="flex justify-between items-center mt-10 gap-5">
-                <div className="flex-[50%]">
+            <div className="mt-10 grid grid-cols-1 gap-5 xl:grid-cols-2">
+                <div className="min-w-0">
                     <ExperienceJourney />
                 </div>
                 <ExperienceDetails />
