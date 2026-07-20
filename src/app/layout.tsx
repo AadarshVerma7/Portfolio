@@ -29,8 +29,8 @@ const graffiti = Rubik_Wet_Paint({
 });
 
 export const metadata: Metadata = {
-  title: "AV | Resume",
-  description: "This is a resume of Aadarsh Verma :)",
+  title: "AV | Portfolio",
+  description: "This is a portfolio build by Aadarsh Verma :)",
   icons:{
     icon:"/images/LOGO.png"
   }
