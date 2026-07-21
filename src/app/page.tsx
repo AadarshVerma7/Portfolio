@@ -50,10 +50,7 @@ type ViewerElement = HTMLElement & {
 
 const criticalAssets = [
   "/images/bgImage1.png",
-
-  // Add other large/important backgrounds here:
-  // "/images/bgImage2.png",
-  // "/images/texture1.png",
+  "/models/goodLookingVinnie.glb"
 ];
 
 /* ========================================================= */
