@@ -20,6 +20,7 @@ import Navbar from "../components/Navbar";
 
 import PortfolioLoader from "../components/PortfolioLoader";
 import useAssetPreloader from "../hooks/useAssetPreloader";
+import useGlbPreloader from "../hooks/useGlbPreloader";
 
 /* ========================================================= */
 /* TYPES */
@@ -57,31 +58,35 @@ export default function Page() {
     useAssetPreloader(criticalAssets);
 
   /* ======================================================= */
-  /* 3D MODEL LOADING STATE */
+  /* 3D MODEL PRELOADER (STREAMING BYTE PROGRESS) */
   /* ======================================================= */
 
-  const [modelProgress, setModelProgress] = useState(0);
-  const [isModelLoaded, setIsModelLoaded] = useState(false);
+  const { progress: glbDownloadProgress, isLoaded: isGlbDownloaded } =
+    useGlbPreloader("/models/goodLookingVinnie.glb");
 
-  const handleModelProgress = useCallback((prog: number) => {
-    setModelProgress(prog);
-  }, []);
+  const [isModelRendered, setIsModelRendered] = useState(false);
 
   const handleModelLoad = useCallback(() => {
-    setModelProgress(100);
-    setIsModelLoaded(true);
+    setIsModelRendered(true);
   }, []);
 
-  // Safety fallback: ensure loader resolves if model loading stalls or errors
+  const handleModelProgress = useCallback((prog: number) => {
+    // Progress is managed via streaming fetch in useGlbPreloader
+  }, []);
+
+  // Safety fallback: allow entrance if loading takes > 45s on ultra-slow networks
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsModelLoaded(true);
-      setModelProgress(100);
-    }, 12000);
+      setIsModelRendered(true);
+    }, 45000);
     return () => clearTimeout(timer);
   }, []);
 
-  const totalProgress = Math.round((imageProgress + modelProgress) / 2);
+  const isModelLoaded = isGlbDownloaded && isModelRendered;
+  const totalProgress = Math.min(
+    100,
+    Math.round(imageProgress * 0.3 + glbDownloadProgress * 0.7)
+  );
   const isLoaded = isImagesLoaded && isModelLoaded;
 
   /* ======================================================= */
