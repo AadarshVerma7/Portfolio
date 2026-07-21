@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 
 import {
   AnimatePresence,
@@ -34,23 +34,8 @@ type ViewerElement = HTMLElement & {
 /* CRITICAL IMAGE ASSETS */
 /* ========================================================= */
 
-/*
-  IMPORTANT:
-
-  Only add IMAGE assets here.
-
-  Our current useAssetPreloader hook uses:
-
-  new Image()
-
-  So .glb files should NOT be added here.
-
-  We will handle the 3D model separately in Step 4.
-*/
-
 const criticalAssets = [
   "/images/bgImage1.png",
-  "/models/goodLookingVinnie.glb"
 ];
 
 /* ========================================================= */
@@ -65,11 +50,39 @@ export default function Page() {
   const viewerRef = useRef<ViewerElement | null>(null);
 
   /* ======================================================= */
-  /* ASSET PRELOADER */
+  /* ASSET PRELOADER (IMAGES) */
   /* ======================================================= */
 
-  const { progress, isLoaded } =
+  const { progress: imageProgress, isLoaded: isImagesLoaded } =
     useAssetPreloader(criticalAssets);
+
+  /* ======================================================= */
+  /* 3D MODEL LOADING STATE */
+  /* ======================================================= */
+
+  const [modelProgress, setModelProgress] = useState(0);
+  const [isModelLoaded, setIsModelLoaded] = useState(false);
+
+  const handleModelProgress = useCallback((prog: number) => {
+    setModelProgress(prog);
+  }, []);
+
+  const handleModelLoad = useCallback(() => {
+    setModelProgress(100);
+    setIsModelLoaded(true);
+  }, []);
+
+  // Safety fallback: ensure loader resolves if model loading stalls or errors
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsModelLoaded(true);
+      setModelProgress(100);
+    }, 12000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const totalProgress = Math.round((imageProgress + modelProgress) / 2);
+  const isLoaded = isImagesLoaded && isModelLoaded;
 
   /* ======================================================= */
   /* SCROLL PROGRESS */
@@ -147,7 +160,7 @@ export default function Page() {
             }}
           >
             <PortfolioLoader
-              progress={progress}
+              progress={totalProgress}
             />
           </motion.div>
         )}
@@ -202,6 +215,8 @@ export default function Page() {
           >
             <BlenderScene
               ref={viewerRef}
+              onLoad={handleModelLoad}
+              onProgress={handleModelProgress}
             />
           </div>
 

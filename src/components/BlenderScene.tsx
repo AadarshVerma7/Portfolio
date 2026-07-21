@@ -1,16 +1,66 @@
 "use client";
-import { useEffect, forwardRef } from "react";
+import { useEffect, forwardRef, useRef, useImperativeHandle } from "react";
 
-const BlenderScene = forwardRef<any>((props, ref) => {
+export interface BlenderSceneProps {
+  onLoad?: () => void;
+  onProgress?: (progress: number) => void;
+}
+
+const BlenderScene = forwardRef<any, BlenderSceneProps>(({ onLoad, onProgress }, ref) => {
+  const modelViewerRef = useRef<any>(null);
+  const onLoadRef = useRef(onLoad);
+  const onProgressRef = useRef(onProgress);
+
   const ModelViewer = "model-viewer" as any;
+
+  useImperativeHandle(ref, () => modelViewerRef.current);
+
+  useEffect(() => {
+    onLoadRef.current = onLoad;
+    onProgressRef.current = onProgress;
+  }, [onLoad, onProgress]);
 
   useEffect(() => {
     import("@google/model-viewer");
   }, []);
 
+  useEffect(() => {
+    const el = modelViewerRef.current;
+    if (!el) return;
+
+    const handleProgress = (event: any) => {
+      const totalProgress = event?.detail?.totalProgress ?? 0;
+      onProgressRef.current?.(Math.round(totalProgress * 100));
+    };
+
+    const handleLoad = () => {
+      onProgressRef.current?.(100);
+      onLoadRef.current?.();
+    };
+
+    const handleError = () => {
+      onProgressRef.current?.(100);
+      onLoadRef.current?.();
+    };
+
+    el.addEventListener("progress", handleProgress);
+    el.addEventListener("load", handleLoad);
+    el.addEventListener("error", handleError);
+
+    if (el.loaded) {
+      handleLoad();
+    }
+
+    return () => {
+      el.removeEventListener("progress", handleProgress);
+      el.removeEventListener("load", handleLoad);
+      el.removeEventListener("error", handleError);
+    };
+  }, []);
+
   return (
     <ModelViewer
-      ref={ref}
+      ref={modelViewerRef}
       src="/models/goodLookingVinnie.glb"
       autoplay
       interaction-prompt="none"
