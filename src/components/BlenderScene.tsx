@@ -35,7 +35,10 @@ const BlenderScene = forwardRef<any, BlenderSceneProps>(({ onLoad, onProgress },
 
     const handleLoad = () => {
       onProgressRef.current?.(100);
-      onLoadRef.current?.();
+      // Allow 1.5s for GPU shader compilation and initial frame WebGL render
+      setTimeout(() => {
+        onLoadRef.current?.();
+      }, 1500);
     };
 
     const handleError = () => {
@@ -62,6 +65,8 @@ const BlenderScene = forwardRef<any, BlenderSceneProps>(({ onLoad, onProgress },
     <ModelViewer
       ref={modelViewerRef}
       src="/models/goodLookingVinnie.glb"
+      loading="eager"
+      reveal="auto"
       autoplay
       interaction-prompt="none"
       shadow-intensity="1"
