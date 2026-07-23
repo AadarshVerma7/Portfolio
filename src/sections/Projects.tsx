@@ -252,7 +252,6 @@ const Projects = () => {
               cardDistance={isMobile ? 0 : 96}
               verticalDistance={isMobile ? 0 : 102}
               delay={3000}
-              pauseOnHover
             >
               {projects.map((project, index) => (
                 <Card
@@ -267,7 +266,7 @@ const Projects = () => {
                         </p>
 
                         <div className="mt-3 h-px w-28 bg-[#3f9c9c]/50" />
-                        <p className="font-handwritten text-[0.6rem] uppercase tracking-[0.35em] text-[#3f9c9c]">Hover to Stop!</p>
+                        {/* <p className="font-handwritten text-[0.6rem] uppercase tracking-[0.35em] text-[#3f9c9c]">Hover to Stop!</p> */}
                         <h3
                           className={`${graffiti.className} mt-5 text-4xl uppercase leading-none tracking-wide text-[#d6b06f] sm:mt-8 sm:text-5xl lg:text-6xl`}
                         >
